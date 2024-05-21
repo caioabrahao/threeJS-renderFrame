@@ -18,12 +18,37 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.render(scene, camera);
 
+
+//scene
+
 const torus = new THREE.Mesh(
     new THREE.TorusGeometry(10, 3, 16, 100),
     new THREE.MeshBasicMaterial({color: orange, wireframe: true}),
 );
 
-scene.add(torus);
+let displayedShape = new THREE.Mesh();
+
+function spinRandomMesh(){
+    let spin = Math.floor(Math.random() * 2);
+
+    if(spin === 0){
+        displayedShape = new THREE.Mesh(
+            new THREE.TorusGeometry(15, 5, 16, 100),
+            new THREE.MeshBasicMaterial({color: orange, wireframe: true}),
+        );
+    }
+    if(spin === 1){
+        displayedShape = new THREE.Mesh(
+            new THREE.BoxGeometry(20, 20, 20, 50),
+            new THREE.MeshBasicMaterial({color: orange, wireframe: true}),
+        );
+    }else{
+        displayedShape = torus;
+    }
+}
+
+spinRandomMesh();
+scene.add(displayedShape);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableZoom = false;
@@ -33,9 +58,9 @@ function animate(){
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 
-    torus.rotation.x += 0.005
-    torus.rotation.y += 0.0005
-    torus.rotation.z += 0.005
+    displayedShape.rotation.x += 0.005
+    displayedShape.rotation.y += 0.0005
+    displayedShape.rotation.z += 0.005
 
     controls.update();
 }
