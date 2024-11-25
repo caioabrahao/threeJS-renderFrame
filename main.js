@@ -1,43 +1,29 @@
-import * as THREE from 'three';
+// Import Three.js elements if needed
+// import { scene, camera, renderer, torus } from './three.js';
 
-// Scene setup
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+// Get the hero text element
+const heroText = document.querySelector('.hero h1');
 
-// Create torus
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshBasicMaterial({ 
-    color: 0xff8c00,
-    wireframe: true 
-});
-const torus = new THREE.Mesh(geometry, material);
-scene.add(torus);
-
-// Position camera
-camera.position.z = 30;
-
-// Animation function
-function animate() {
-    requestAnimationFrame(animate);
-
-    // Rotate the torus
-    torus.rotation.x += 0.01;
-    torus.rotation.y += 0.01;
-
-    renderer.render(scene, camera);
-}
-
-// Handle window resizing
-window.addEventListener('resize', onWindowResize, false);
-
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-// Start animation
-animate(); 
+// Scroll handler
+window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    const heroHeight = window.innerHeight;
+    
+    // Calculate scroll progress (0 to 1)
+    const scrollProgress = Math.min(scrollPosition / (heroHeight * 0.8), 1);
+    
+    // Apply transformations
+    const scale = 1 - (scrollProgress * 0.3);
+    const opacity = 1 - scrollProgress;
+    const blur = scrollProgress * 10;
+    const yOffset = scrollProgress * 100;
+    const rotation = scrollProgress * 10;
+    
+    heroText.style.transform = `
+        scale(${scale})
+        translateY(-${yOffset}px)
+        rotateX(${rotation}deg)
+    `;
+    heroText.style.opacity = opacity;
+    heroText.style.filter = `blur(${blur}px)`;
+}); 
