@@ -28,12 +28,17 @@ window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
     
-    // Start animation immediately on first scroll
-    // Complete animation by the time we reach second section
-    const progress = Math.min(scrollPosition / windowHeight, 1);
-    
-    // Move from center (0) to right (20)
-    targetX = progress * 20;
+    if (scrollPosition < windowHeight) {
+        // First section to second section (center to right)
+        const progress = Math.min(scrollPosition / windowHeight, 1);
+        targetX = progress * 20;
+    } else if (scrollPosition < windowHeight * 2) {
+        // Stay at right position during second section
+        targetX = 20;
+    } else {
+        // Move to left for cards section and stay there for the rest
+        targetX = -20;
+    }
 });
 
 // Animation function

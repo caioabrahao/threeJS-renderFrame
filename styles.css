@@ -31,8 +31,12 @@ canvas {
 .logo {
     color: white;
     font-size: 1.5rem;
-    font-weight: 700;
-    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.logo span {
+    color: #ff8c00;
 }
 
 .nav-links {
@@ -227,5 +231,93 @@ canvas {
     100% {
         clip-path: inset(40% 0 40% 0);
         transform: translate(-var(--glitch-intensity), 0);
+    }
+}
+
+.cards-section {
+    position: relative;
+    z-index: 2;
+    background: #000000;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid #ff8c00;
+    border-bottom: 1px solid #ff8c00;
+}
+
+.section-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    color: white;
+    font-size: 3rem;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    margin-bottom: 4rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.cards-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 8px;
+    width: 300px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.card h3 {
+    color: #ff8c00;
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.card h4 {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.card p {
+    color: #cccccc;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .cards-container {
+        gap: 1.5rem;
+    }
+    
+    .card {
+        width: calc(50% - 1.5rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 100%;
     }
 } 
