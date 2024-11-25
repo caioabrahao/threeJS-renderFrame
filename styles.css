@@ -1,0 +1,117 @@
+body { 
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: black;
+}
+
+canvas { 
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3;
+    padding: 1rem 96px;
+    box-sizing: border-box;
+}
+
+.main-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 0.7;
+}
+
+.nav-links a.active {
+    font-weight: 700;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    z-index: 2;
+    user-select: none;
+}
+
+.hero h1 {
+    font-size: 8vw;
+    font-weight: 900;
+    letter-spacing: 4px;
+    position: relative;
+    z-index: 2;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 96px;
+}
+
+.content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0;
+}
+
+.content-right {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.content-right h2,
+.content-right p {
+    max-width: 800px;
+} 
