@@ -72,4 +72,31 @@ window.addEventListener('scroll', () => {
     `;
     heroText.style.opacity = opacity;
     heroText.style.filter = `blur(${blur}px)`;
+});
+
+// Add this to your main.js file
+document.addEventListener('DOMContentLoaded', () => {
+    const placeholder = document.querySelector('.profile-placeholder');
+    
+    if (placeholder) {
+        placeholder.addEventListener('mousemove', (e) => {
+            const rect = placeholder.getBoundingClientRect();
+            
+            // Calculate mouse position relative to the center of the element
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            // Increased multiplier from 20 to 35 for more sensitivity
+            const xDeg = (y / rect.height) * 35;  // Vertical mouse = X rotation
+            const yDeg = -(x / rect.width) * 35;  // Horizontal mouse = Y rotation
+            
+            // Apply the rotation
+            placeholder.style.transform = `rotateX(${xDeg}deg) rotateY(${yDeg}deg)`;
+        });
+        
+        // Reset rotation when mouse leaves
+        placeholder.addEventListener('mouseleave', () => {
+            placeholder.style.transform = 'rotateX(0) rotateY(0)';
+        });
+    }
 }); 
