@@ -23,6 +23,48 @@ camera.position.z = 30;
 let targetX = 0;
 let currentX = 0;
 
+// Drag interaction variables
+let isDragging = false;
+let previousMouseX = 0;
+let previousMouseY = 0;
+let rotationSpeed = { x: 0, y: 0 };
+
+// Raycaster for drag detection
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+// Mouse event handlers
+window.addEventListener('mousedown', (event) => {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObject(torus);
+    
+    if (intersects.length > 0) {
+        isDragging = true;
+        previousMouseX = event.clientX;
+        previousMouseY = event.clientY;
+    }
+});
+
+window.addEventListener('mousemove', (event) => {
+    if (isDragging) {
+        const deltaX = event.clientX - previousMouseX;
+        const deltaY = event.clientY - previousMouseY;
+        
+        rotationSpeed.x = deltaY * 0.005;
+        rotationSpeed.y = deltaX * 0.005;
+        
+        previousMouseX = event.clientX;
+        previousMouseY = event.clientY;
+    }
+});
+
+window.addEventListener('mouseup', () => {
+    isDragging = false;
+});
+
 // Scroll handler
 window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
@@ -49,9 +91,19 @@ function animate() {
     currentX += (targetX - currentX) * 0.1;
     torus.position.x = currentX;
 
-    // Rotate the torus
-    torus.rotation.x += 0.01;
-    torus.rotation.y += 0.01;
+    if (isDragging) {
+        // Apply drag rotation
+        torus.rotation.x += rotationSpeed.x;
+        torus.rotation.y += rotationSpeed.y;
+    } else {
+        // Regular rotation when not dragging
+        torus.rotation.x += 0.01;
+        torus.rotation.y += 0.01;
+        
+        // Gradually slow down any existing rotation speed
+        rotationSpeed.x *= 0.95;
+        rotationSpeed.y *= 0.95;
+    }
 
     renderer.render(scene, camera);
 }

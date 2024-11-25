@@ -1,5 +1,51 @@
-// Import Three.js elements if needed
-// import { scene, camera, renderer, torus } from './three.js';
+// Loading screen handler
+window.addEventListener('load', () => {
+    const loadingScreen = document.querySelector('.loading-screen');
+    
+    // Check if this is a page navigation (not refresh or first visit)
+    if (sessionStorage.getItem('hasVisited') && performance.navigation.type !== 1) {
+        // Hide loading screen immediately if navigating between pages
+        loadingScreen.style.display = 'none';
+        return;
+    }
+    
+    const progress = document.querySelector('.progress');
+    const loadingMessage = document.querySelector('.loading-message');
+    
+    // Random loading messages
+    const messages = [
+        "Calibrating quantum flux capacitors...",
+        "Teaching robots to dance...",
+        "Downloading more RAM...",
+        "Convincing pixels to behave...",
+        "Generating random loading message..."
+    ];
+    
+    // Set random message
+    loadingMessage.textContent = messages[Math.floor(Math.random() * messages.length)];
+    
+    let width = 0;
+    
+    // Loading simulation
+    const interval = setInterval(() => {
+        width += Math.random() * 30;
+        if (width > 100) {
+            width = 100;
+            clearInterval(interval);
+            
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    // Set the visited flag in sessionStorage
+                    sessionStorage.setItem('hasVisited', 'true');
+                }, 500);
+            }, 300);
+        }
+        progress.style.width = width + '%';
+    }, 200);
+});
 
 // Get the hero text element
 const heroText = document.querySelector('.hero h1');
